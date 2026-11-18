@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ConsumodeAPIREST.Models"
+             xmlns:viewmodels="clr-namespace:ConsumodeAPIREST.ViewModels"
+             x:Class="ConsumodeAPIREST.Views.UsuariosPage"
+             x:DataType="viewmodels:UsuariosViewModel"
+             Title="Usuarios">
+    <Grid RowDefinitions="Auto,*">
+        <Button Grid.Row="0"
+                Margin="16,12,16,8"
+                Command="{Binding IrANuevoUsuarioCommand}"
+                Text="Nuevo usuario" />
+
+        <RefreshView Grid.Row="1"
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefrescarUsuariosCommand}">
+            <CollectionView ItemsSource="{Binding Usuarios}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedUsuario, Mode=TwoWay}"
+                            SelectionChangedCommand="{Binding SeleccionarUsuarioCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
+                <CollectionView.EmptyView>
+                    <Label HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Text="No hay usuarios para mostrar." />
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Usuario">
+                        <Border Margin="12,6"
+                                Padding="12"
+                                StrokeShape="RoundRectangle 8">
+                            <VerticalStackLayout Spacing="4">
+                                <Label FontAttributes="Bold" Text="{Binding Name}" />
+                                <Label Text="{Binding Email}" />
+                                <Label Text="{Binding Phone}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <ActivityIndicator Grid.RowSpan="2"
+                           HorizontalOptions="Center"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           VerticalOptions="Center" />
+    </Grid>
+</ContentPage>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:ConsumodeAPIREST.ViewModels"
+             x:Class="ConsumodeAPIREST.Views.DetalleUsuarioPage"
+             x:DataType="viewmodels:DetalleUsuarioViewModel"
+             Title="Detalle del usuario">
+    <Grid Padding="24"
+          RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+          RowSpacing="16">
+        <Label Grid.Row="0" FontSize="20" Text="{Binding Usuario.Name}" />
+        <Label Grid.Row="1" Text="{Binding Usuario.Id, StringFormat='Id: {0}'}" />
+        <Label Grid.Row="2" Text="{Binding Usuario.Email, StringFormat='Email: {0}'}" />
+        <Label Grid.Row="3" Text="{Binding Usuario.Phone, StringFormat='Teléfono: {0}'}" />
+        <Label Grid.Row="4" Text="{Binding Usuario.Website, StringFormat='Web: {0}'}" />
+
+        <ActivityIndicator Grid.RowSpan="5"
+                           HorizontalOptions="Center"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           VerticalOptions="Center" />
+    </Grid>
+</ContentPage>
